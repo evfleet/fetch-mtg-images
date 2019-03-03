@@ -4,5 +4,12 @@
     "@babel/typescript",
     ["@babel/env", { "modules": false }]
   ],
-  "plugins": ["babel-plugin-styled-components"]
+  "plugins": [
+    [
+      "babel-plugin-styled-components",
+      {
+        "fileName": false
+      }
+    ]
+  ]
 }
