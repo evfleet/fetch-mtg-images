@@ -31,11 +31,13 @@ const Search = ({ addCard }) => {
         onSubmit={(event) => {
           event.preventDefault();
 
-          // TODO only allow submit if its a valid card
-
           const card = results.find((r) => r.name === input.name);
+
+          if (card) {
+            addCard(card);
+          }
+
           setInput({ name: "" });
-          addCard(card);
         }}
       >
         <Autocomplete
