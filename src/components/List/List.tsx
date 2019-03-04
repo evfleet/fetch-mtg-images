@@ -7,7 +7,7 @@ interface ListProps {
 }
 
 const List: React.SFC<ListProps> = () => {
-  return <div>List`</div>;
+  return <div>List</div>;
 };
 
 export default List;

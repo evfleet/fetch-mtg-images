@@ -1,23 +1,25 @@
 import React, { useState } from "react";
 import JSZip from "jszip";
 
-import { AddCardFunc, Card } from "../../types";
+import { Card, UpdateCardsFunc } from "../../types";
 
 import List from "../List";
 import TextInput from "../TextInput";
 import { Container } from "./styles";
 
+import { formatName } from "../../utils";
+
 const App = () => {
   const [zip, setZip] = useState<JSZip>(new JSZip());
   const [cards, setCards] = useState<Card[]>([]);
 
-  const addCard: AddCardFunc = (card) => {};
+  const updateCards: UpdateCardsFunc = (card) => {};
 
   return (
     <Container>
       <p>Hello World</p>
 
-      <TextInput addCard={addCard} />
+      <TextInput updateCards={updateCards} />
 
       <List cards={cards} />
     </Container>

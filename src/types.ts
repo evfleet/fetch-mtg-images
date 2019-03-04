@@ -2,4 +2,4 @@ export interface Card {
   name: string;
 }
 
-export type AddCardFunc = (card: Card) => void;
+export type UpdateCardsFunc = (names: string[]) => void;
