@@ -1,8 +1,16 @@
 import React, { useState } from "react";
 import JSZip from "jszip";
 
-import { AvailableCard, CardState, UnavailableCard, UpdateCardsFunc } from "../../types";
+import {
+  AvailableCard,
+  CardState,
+  DownloadZipFunc,
+  RemoveCardFunc,
+  UnavailableCard,
+  UpdateCardsFunc
+} from "../../types";
 
+import DownloadButton from "../DownloadButton";
 import List from "../List";
 import TextInput from "../TextInput";
 import { Container } from "./styles";
@@ -41,13 +49,19 @@ const App = () => {
     });
   };
 
+  const removeCard: RemoveCardFunc = () => {};
+
+  const downloadZip: DownloadZipFunc = () => {};
+
   return (
     <Container>
       <p>Hello World</p>
 
       <TextInput updateCards={updateCards} />
 
-      <List cards={cards} />
+      <List cards={cards} removeCard={removeCard} />
+
+      <DownloadButton zip={zip} downloadZip={downloadZip} />
     </Container>
   );
 };

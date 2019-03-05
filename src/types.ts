@@ -18,3 +18,7 @@ export interface CardState {
 }
 
 export type UpdateCardsFunc = (names: string[]) => void;
+
+export type RemoveCardFunc = () => void;
+
+export type DownloadZipFunc = () => void;

@@ -1,9 +1,10 @@
 import React from "react";
 
-import { CardState } from "../../types";
+import { CardState, RemoveCardFunc } from "../../types";
 
 interface ListProps {
   cards: CardState;
+  removeCard: RemoveCardFunc;
 }
 
 const List: React.SFC<ListProps> = () => {
