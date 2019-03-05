@@ -10,6 +10,7 @@
       {
         "fileName": false
       }
-    ]
+    ],
+    "@babel/plugin-transform-runtime"
   ]
 }

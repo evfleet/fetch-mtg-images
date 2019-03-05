@@ -1,9 +1,9 @@
 import React from "react";
 
-import { Card } from "../../types";
+import { CardState } from "../../types";
 
 interface ListProps {
-  cards: Card[];
+  cards: CardState;
 }
 
 const List: React.SFC<ListProps> = () => {

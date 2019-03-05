@@ -3,14 +3,14 @@ import React, { useState } from "react";
 import { UpdateCardsFunc } from "../../types";
 
 interface TextInputProps {
-  updateCards: UpdateCardsFunc;
+  updateCards: (names: string[]) => void;
 }
 
 const TextInput: React.SFC<TextInputProps> = ({ updateCards }) => {
   const [value, setValue] = useState("");
 
-  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setValue(event.target.value);
+  const handleChange = (event: React.ChangeEvent) => {
+    setValue((event.target as any).value);
   };
 
   const handleSubmit = () => {
