@@ -7,18 +7,33 @@ const getBinaryContent = util.promisify(JSZipUtils.getBinaryContent);
 
 export default async function(name: string): Promise<AvailableCard | UnavailableCard> {
   try {
-    const res = await fetch(`https://api.scryfall.com/cards/named?fuzzy=${encodeURI(name)}`);
-    const result = await res.json();
+    const result = await fetch(`https://api.scryfall.com/cards/named?fuzzy=${encodeURI(name)}`).then((r) => r.json());
 
-    if (result.status && result.status === 404) {
+    if (result.object !== "card") {
       throw new Error("Card not found");
     }
 
-    if (!result.image_uris) {
-      throw new Error("No image urls");
-    }
+    let imageData;
+    let image;
+    let thumbnail;
 
-    const imageData = await getBinaryContent(result.image_uris.large);
+    if (result.prints_search_uri) {
+      const printings = await fetch(result.prints_search_uri).then((r) => r.json());
+
+      if (printings.object !== "list") {
+        throw new Error("Printings not found");
+      }
+
+      const oldest = printings.data[printings.data.length - 1];
+
+      imageData = await getBinaryContent(oldest.image_uris.normal);
+      image = oldest.image_uris.large;
+      thumbnail = oldest.image_uris.small;
+    } else {
+      imageData = await getBinaryContent(result.image_uris.large);
+      image = result.image_uris.large;
+      thumbnail = result.image_uris.small;
+    }
 
     if (!imageData) {
       throw new Error("Image not found");
@@ -26,21 +41,24 @@ export default async function(name: string): Promise<AvailableCard | Unavailable
 
     return {
       name,
+      image,
       imageData,
-      image: result.image_uris.large,
-      thumbnail: result.image_uris.small
+      thumbnail
     };
   } catch (error) {
-    if (error.message === "Card not found" || error.message === "Image not found") {
-      return {
-        name,
-        error: error.message
-      };
+    switch (error.message) {
+      case "Card not found":
+      case "Image not found":
+      case "Printings not found":
+        return {
+          name,
+          error: error.message
+        };
+      default:
+        return {
+          name,
+          error: "Unexpected error"
+        };
     }
-
-    return {
-      name,
-      error: "Unexpected error"
-    };
   }
 }

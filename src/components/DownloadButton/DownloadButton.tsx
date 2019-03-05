@@ -4,15 +4,15 @@ import JSZip from "jszip";
 import { DownloadZipFunc } from "../../types";
 
 interface DownloadButtonProps {
-  zip: JSZip;
   downloadZip: DownloadZipFunc;
+  zip: JSZip;
 }
 
-const DownloadButton: React.SFC<DownloadButtonProps> = ({ zip }) => {
+const DownloadButton: React.SFC<DownloadButtonProps> = ({ downloadZip, zip }) => {
   const files = Object.keys(zip.files);
 
   if (files.length > 0) {
-    return <button>Download</button>;
+    return <button onClick={downloadZip}>Download</button>;
   }
 
   return null;

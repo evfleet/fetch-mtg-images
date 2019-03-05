@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import JSZip from "jszip";
+import { saveAs } from "file-saver";
 
 import {
   AvailableCard,
@@ -18,18 +19,20 @@ import { Container } from "./styles";
 import { delay, formatName, getCardData } from "../../utils";
 
 const App = () => {
-  const [zip, setZip] = useState<JSZip>(new JSZip());
-  const [cards, setCards] = useState<CardState>({
+  const initialCardState: CardState = {
     available: [],
     unavailable: []
-  });
+  };
+
+  const [zip, setZip] = useState<JSZip>(new JSZip());
+  const [cards, setCards] = useState<CardState>(initialCardState);
 
   const updateCards: UpdateCardsFunc = async (names) => {
     const available: AvailableCard[] = [];
     const unavailable: UnavailableCard[] = [];
 
     for (const name of names) {
-      const result: any = await getCardData(name).then(delay.bind(null, 100));
+      const result: any = await getCardData(name).then(delay.bind(null, 250));
 
       if (result.error) {
         unavailable.push(result);
@@ -51,17 +54,24 @@ const App = () => {
 
   const removeCard: RemoveCardFunc = () => {};
 
-  const downloadZip: DownloadZipFunc = () => {};
+  const downloadZip: DownloadZipFunc = async () => {
+    try {
+      const blob = await zip.generateAsync({ type: "blob" });
+      saveAs(blob, "images.zip");
+      setZip(new JSZip());
+      setCards(initialCardState);
+    } catch (error) {
+      console.log("Error downloading zip");
+    }
+  };
 
   return (
     <Container>
-      <p>Hello World</p>
-
       <TextInput updateCards={updateCards} />
 
       <List cards={cards} removeCard={removeCard} />
 
-      <DownloadButton zip={zip} downloadZip={downloadZip} />
+      <DownloadButton downloadZip={downloadZip} zip={zip} />
     </Container>
   );
 };
