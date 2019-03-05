@@ -1,9 +1,4 @@
-import util from "util";
-import JSZipUtils from "jszip-utils";
-
 import { AvailableCard, UnavailableCard } from "../types";
-
-const getBinaryContent = util.promisify(JSZipUtils.getBinaryContent);
 
 export default async function(name: string): Promise<AvailableCard | UnavailableCard> {
   try {
@@ -26,11 +21,11 @@ export default async function(name: string): Promise<AvailableCard | Unavailable
 
       const oldest = printings.data[printings.data.length - 1];
 
-      imageData = await getBinaryContent(oldest.image_uris.normal);
+      imageData = await fetch(oldest.image_uris.normal).then((r) => r.arrayBuffer());
       image = oldest.image_uris.large;
       thumbnail = oldest.image_uris.small;
     } else {
-      imageData = await getBinaryContent(result.image_uris.large);
+      imageData = await fetch(result.image_uris.normal).then((r) => r.arrayBuffer());
       image = result.image_uris.large;
       thumbnail = result.image_uris.small;
     }

@@ -15,7 +15,6 @@
   "dependencies": {
     "file-saver": "^2.0.1",
     "jszip": "^3.2.0",
-    "jszip-utils": "^0.0.2",
     "react": "^16.8.3",
     "react-autocomplete": "^1.8.1",
     "react-dom": "^16.8.3",

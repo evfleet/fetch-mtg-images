@@ -57,7 +57,7 @@ const App = () => {
   const downloadZip: DownloadZipFunc = async () => {
     try {
       const blob = await zip.generateAsync({ type: "blob" });
-      saveAs(blob, "images.zip");
+      saveAs(blob, "card-images.zip");
       setZip(new JSZip());
       setCards(initialCardState);
     } catch (error) {
