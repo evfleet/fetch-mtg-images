@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 
-import { UpdateCardsFunc } from "../../types";
+import { UpdateCardsFunc, UpdateValueFunc } from "../../types";
 
 interface TextInputProps {
-  updateCards: (names: string[]) => void;
+  updateCards: UpdateCardsFunc;
+  updateValue: UpdateValueFunc;
+  value: string;
 }
 
-const TextInput: React.SFC<TextInputProps> = ({ updateCards }) => {
-  const [value, setValue] = useState("");
-
+const TextInput: React.SFC<TextInputProps> = ({ updateCards, updateValue, value }) => {
   const handleChange = (event: React.ChangeEvent) => {
-    setValue((event.target as any).value);
+    updateValue((event.target as any).value);
   };
 
   const handleSubmit = () => {

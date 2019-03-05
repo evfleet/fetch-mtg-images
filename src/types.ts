@@ -17,8 +17,10 @@ export interface CardState {
   unavailable: UnavailableCard[];
 }
 
+export type UpdateValueFunc = (input: string) => void;
+
 export type UpdateCardsFunc = (names: string[]) => void;
 
-export type RemoveCardFunc = () => void;
+export type RemoveCardFunc = (name: string) => void;
 
 export type DownloadZipFunc = () => void;

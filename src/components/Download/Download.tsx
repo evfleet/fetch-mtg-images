@@ -3,19 +3,21 @@ import JSZip from "jszip";
 
 import { DownloadZipFunc } from "../../types";
 
-interface DownloadButtonProps {
+import { Button } from "./styles";
+
+interface DownloadProps {
   downloadZip: DownloadZipFunc;
   zip: JSZip;
 }
 
-const DownloadButton: React.SFC<DownloadButtonProps> = ({ downloadZip, zip }) => {
+const Download: React.SFC<DownloadProps> = ({ downloadZip, zip }) => {
   const files = Object.keys(zip.files);
 
   if (files.length > 0) {
-    return <button onClick={downloadZip}>Download</button>;
+    return <Button onClick={downloadZip}>Download</Button>;
   }
 
   return null;
 };
 
-export default DownloadButton;
+export default Download;
