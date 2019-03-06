@@ -7,7 +7,6 @@ const Wrapper = styled.div`
   max-width: 100vw;
   height: 100%;
   min-height: 100vh;
-
   background: ${({ theme }) => theme.colors.background};
 `;
 

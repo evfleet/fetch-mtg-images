@@ -2,7 +2,9 @@ import { AvailableCard, UnavailableCard } from "../types";
 
 export default async function(name: string): Promise<AvailableCard | UnavailableCard> {
   try {
-    const result = await fetch(`https://api.scryfall.com/cards/named?fuzzy=${encodeURI(name)}`).then((r) => r.json());
+    const result = await fetch(
+      `https://api.scryfall.com/cards/named?fuzzy=${encodeURI(name)}`
+    ).then((r) => r.json());
 
     if (result.object !== "card") {
       throw new Error("Card not found");
@@ -10,7 +12,6 @@ export default async function(name: string): Promise<AvailableCard | Unavailable
 
     let imageData;
     let image;
-    let thumbnail;
 
     if (result.prints_search_uri) {
       const printings = await fetch(result.prints_search_uri).then((r) => r.json());
@@ -22,12 +23,10 @@ export default async function(name: string): Promise<AvailableCard | Unavailable
       const oldest = printings.data[printings.data.length - 1];
 
       imageData = await fetch(oldest.image_uris.normal).then((r) => r.arrayBuffer());
-      image = oldest.image_uris.large;
-      thumbnail = oldest.image_uris.small;
+      image = oldest.image_uris.png;
     } else {
       imageData = await fetch(result.image_uris.normal).then((r) => r.arrayBuffer());
-      image = result.image_uris.large;
-      thumbnail = result.image_uris.small;
+      image = result.image_uris.png;
     }
 
     if (!imageData) {
@@ -37,8 +36,7 @@ export default async function(name: string): Promise<AvailableCard | Unavailable
     return {
       name,
       image,
-      imageData,
-      thumbnail
+      imageData
     };
   } catch (error) {
     switch (error.message) {

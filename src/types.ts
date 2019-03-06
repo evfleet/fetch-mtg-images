@@ -5,7 +5,6 @@ export interface Card {
 export interface AvailableCard extends Card {
   imageData: ArrayBuffer;
   image: string;
-  thumbnail: string;
 }
 
 export interface UnavailableCard extends Card {

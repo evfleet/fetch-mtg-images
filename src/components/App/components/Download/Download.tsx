@@ -3,7 +3,7 @@ import JSZip from "jszip";
 
 import { DownloadZipFunc } from "../../../../types";
 
-import { Button } from "./styles";
+import { Button } from "../../../../styles/shared";
 
 interface DownloadProps {
   downloadZip: DownloadZipFunc;
@@ -17,7 +17,8 @@ const Download: React.SFC<DownloadProps> = ({ downloadZip, zip }) => {
     return <Button onClick={downloadZip}>Download</Button>;
   }
 
-  return null;
+  // return null;
+  return <Button onClick={downloadZip}>Download</Button>;
 };
 
 export default Download;

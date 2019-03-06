@@ -6,4 +6,11 @@ const Container = styled.header`
   align-items: center;
 `;
 
-export { Container };
+const Title = styled.h1`
+  color: ${({ theme }) => theme.colors.white};
+  font-family: ${({ theme }) => theme.fonts.heading.family};
+  font-weight: ${({ theme }) => theme.fonts.heading.boldWeight};
+  font-size: 1.25rem;
+`;
+
+export { Container, Title };

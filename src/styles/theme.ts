@@ -4,8 +4,14 @@ export interface Theme {
     background: string;
   };
   fonts: {
-    heading: string;
-    body: string;
+    heading: {
+      family: string;
+      boldWeight: number;
+      normalWeight: number;
+    };
+    body: {
+      family: string;
+    };
   };
   sizing: {
     header: number;
@@ -16,14 +22,20 @@ export interface Theme {
 const theme: Theme = {
   colors: {
     white: "#FEFFFE",
-    background: "#2A628F"
+    background: "#570000"
   },
   fonts: {
-    heading: "Merriweather Sans",
-    body: "Merriweather"
+    heading: {
+      family: "Merriweather Sans",
+      boldWeight: 700,
+      normalWeight: 400
+    },
+    body: {
+      family: "Merriweather"
+    }
   },
   sizing: {
-    header: 3,
+    header: 4,
     footer: 3
   }
 };

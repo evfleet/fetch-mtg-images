@@ -12,10 +12,11 @@ import {
   UpdateValueFunc
 } from "../../types";
 
+import CardList from "./components/CardList";
 import Download from "./components/Download";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
-import List from "./components/List";
+import Loader from "./components/Loader";
 import TextInput from "./components/TextInput";
 import { Container, InputContainer, ListContainer, Wrapper } from "./styles";
 
@@ -23,8 +24,19 @@ import { delay, formatName, getCardData } from "../../utils";
 
 const App = () => {
   const initialCardState: CardState = {
-    available: [],
-    unavailable: []
+    available: [
+      {
+        image: "https://img.scryfall.com/cards/png/en/ss1/1.png?1529364963",
+        imageData: new ArrayBuffer(123131),
+        name: "Jace Beleren"
+      }
+    ],
+    unavailable: [
+      {
+        name: "Test 123",
+        error: "Not Found"
+      }
+    ]
   };
 
   const [zip, setZip] = useState<JSZip>(new JSZip());
@@ -37,8 +49,8 @@ const App = () => {
   };
 
   const updateCards: UpdateCardsFunc = async (names) => {
-    const available: AvailableCard[] = [];
-    const unavailable: UnavailableCard[] = [];
+    let available: AvailableCard[] = [];
+    let unavailable: UnavailableCard[] = [];
 
     setIsWorking(true);
     setValue("");
@@ -57,6 +69,9 @@ const App = () => {
     available.map(({ name, imageData }) => {
       zip.file(`${formatName(name)}.jpg`, imageData, { binary: true });
     });
+
+    available = [...new Set([...cards.available, ...available])];
+    unavailable = [...new Set([...cards.unavailable, ...unavailable])];
 
     setIsWorking(false);
     setCards({
@@ -94,12 +109,20 @@ const App = () => {
         <Header />
 
         <InputContainer>
-          <TextInput updateCards={updateCards} updateValue={updateValue} value={value} />
+          <TextInput
+            isWorking={isWorking}
+            updateCards={updateCards}
+            updateValue={updateValue}
+            value={value}
+          >
+            <Loader />
+          </TextInput>
         </InputContainer>
 
         <ListContainer>
-          <Download downloadZip={downloadZip} zip={zip} />
-          <List cards={cards} removeCard={removeCard} />
+          <CardList cards={cards} removeCard={removeCard}>
+            <Download downloadZip={downloadZip} zip={zip} />
+          </CardList>
         </ListContainer>
 
         <Footer />

@@ -1,9 +1,13 @@
 import React from "react";
 
-import { Container } from "./styles";
+import { Container, Title } from "./styles";
 
 const Header = () => {
-  return <Container>Header</Container>;
+  return (
+    <Container>
+      <Title>MTG Card Image Fetcher</Title>
+    </Container>
+  );
 };
 
 export default Header;
