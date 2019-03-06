@@ -13,6 +13,8 @@ import {
 } from "../../types";
 
 import Download from "../Download";
+import Footer from "../Footer";
+import Header from "../Header";
 import List from "../List";
 import TextInput from "../TextInput";
 import { Container, Wrapper } from "./styles";

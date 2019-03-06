@@ -1,13 +1,14 @@
 import * as React from "react";
 import { render } from "react-dom";
-import { ThemeProvider } from "styled-components";
+import { ThemeProvider } from "./styles/themed-styled";
 
 import App from "./components/App";
-import { CSSReset, theme } from "./styles";
+import { CSSReset, GlobalStyle, theme } from "./styles";
 
 const Root = () => (
   <>
     <CSSReset />
+    <GlobalStyle theme={theme} />
     <ThemeProvider theme={theme}>
       <App />
     </ThemeProvider>

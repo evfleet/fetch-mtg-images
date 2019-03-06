@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from "./themed-styled";
 
 const CSSReset = createGlobalStyle`
 /*! minireset.css v0.0.4 | MIT License | github.com/jgthms/minireset.css */

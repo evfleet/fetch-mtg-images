@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "../../styles/themed-styled";
 
 const Button = styled.button``;
 
