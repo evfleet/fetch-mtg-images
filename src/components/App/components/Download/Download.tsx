@@ -1,7 +1,7 @@
 import React from "react";
 import JSZip from "jszip";
 
-import { DownloadZipFunc } from "../../types";
+import { DownloadZipFunc } from "../../../../types";
 
 import { Button } from "./styles";
 

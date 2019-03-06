@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 
-import { UpdateCardsFunc, UpdateValueFunc } from "../../types";
+import { UpdateCardsFunc, UpdateValueFunc } from "../../../../types";
+
+import { TextArea } from "./styles";
 
 interface TextInputProps {
   updateCards: UpdateCardsFunc;
@@ -19,10 +21,10 @@ const TextInput: React.SFC<TextInputProps> = ({ updateCards, updateValue, value 
   };
 
   return (
-    <div>
-      <textarea value={value} onChange={handleChange} />
+    <>
+      <TextArea value={value} onChange={handleChange} />
       <button onClick={handleSubmit}>Update</button>
-    </div>
+    </>
   );
 };
 

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { CardState, RemoveCardFunc } from "../../types";
+import { CardState, RemoveCardFunc } from "../../../../types";
 
 interface ListProps {
   cards: CardState;
@@ -13,24 +13,35 @@ const List: React.SFC<ListProps> = ({ cards: { available, unavailable }, removeC
   };
 
   const availableCards = available.map(({ name, image, thumbnail }, index) => (
-    <div key={`${name}-${index}`}>
+    <li key={`${name}-${index}`}>
       <p>{name}</p>
       <img src={thumbnail} alt={`Thumbnail for ${name}`} />
       <button onClick={handleClick(name)}>Delete</button>
-    </div>
+    </li>
   ));
 
   const unavailableCards = unavailable.map(({ name, error }, index) => (
-    <div key={`${name}-${index}`}>
+    <li key={`${name}-${index}`}>
       <p>{name}</p>
-    </div>
+    </li>
   ));
 
   return (
-    <div>
-      <div>{availableCards}</div>
-      <div>{unavailableCards}</div>
-    </div>
+    <>
+      {availableCards.length > 0 && (
+        <div>
+          <h2>Available Cards</h2>
+          <ul>{availableCards}</ul>
+        </div>
+      )}
+
+      {unavailableCards.length > 0 && (
+        <div>
+          <h2>Unavailable Cards</h2>
+          <ul>{unavailableCards}</ul>
+        </div>
+      )}
+    </>
   );
 };
 

@@ -12,12 +12,12 @@ import {
   UpdateValueFunc
 } from "../../types";
 
-import Download from "../Download";
-import Footer from "../Footer";
-import Header from "../Header";
-import List from "../List";
-import TextInput from "../TextInput";
-import { Container, Wrapper } from "./styles";
+import Download from "./components/Download";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
+import List from "./components/List";
+import TextInput from "./components/TextInput";
+import { Container, InputContainer, ListContainer, Wrapper } from "./styles";
 
 import { delay, formatName, getCardData } from "../../utils";
 
@@ -91,11 +91,18 @@ const App = () => {
   return (
     <Wrapper>
       <Container>
-        <TextInput updateCards={updateCards} updateValue={updateValue} value={value} />
-        <List cards={cards} removeCard={removeCard} />
+        <Header />
 
-        {isWorking && "Working"}
-        <Download downloadZip={downloadZip} zip={zip} />
+        <InputContainer>
+          <TextInput updateCards={updateCards} updateValue={updateValue} value={value} />
+        </InputContainer>
+
+        <ListContainer>
+          <Download downloadZip={downloadZip} zip={zip} />
+          <List cards={cards} removeCard={removeCard} />
+        </ListContainer>
+
+        <Footer />
       </Container>
     </Wrapper>
   );
