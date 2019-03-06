@@ -22,10 +22,10 @@ export default async function(name: string): Promise<AvailableCard | Unavailable
 
       const oldest = printings.data[printings.data.length - 1];
 
-      imageData = await fetch(oldest.image_uris.normal).then((r) => r.arrayBuffer());
+      imageData = await fetch(oldest.image_uris.large).then((r) => r.arrayBuffer());
       image = oldest.image_uris.png;
     } else {
-      imageData = await fetch(result.image_uris.normal).then((r) => r.arrayBuffer());
+      imageData = await fetch(result.image_uris.large).then((r) => r.arrayBuffer());
       image = result.image_uris.png;
     }
 
