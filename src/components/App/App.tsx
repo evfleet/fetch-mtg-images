@@ -9,39 +9,31 @@ import {
   RemoveCardFunc,
   UnavailableCard,
   UpdateCardsFunc,
+  UpdateCardViewerFunc,
   UpdateValueFunc
 } from "../../types";
 
 import CardList from "./components/CardList";
+import CardViewer from "./components/CardViewer";
 import Download from "./components/Download";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Loader from "./components/Loader";
 import TextInput from "./components/TextInput";
-import { Container, InputContainer, ListContainer, Wrapper } from "./styles";
+import { Container, InputContainer, ListContainer, ViewerContainer, Wrapper } from "./styles";
 
 import { delay, formatName, getCardData } from "../../utils";
 
 const App = () => {
   const initialCardState: CardState = {
-    available: [
-      {
-        image: "https://img.scryfall.com/cards/png/en/ss1/1.png?1529364963",
-        imageData: new ArrayBuffer(123131),
-        name: "Jace Beleren"
-      }
-    ],
-    unavailable: [
-      {
-        name: "Test 123",
-        error: "Not Found"
-      }
-    ]
+    available: [],
+    unavailable: []
   };
 
   const [zip, setZip] = useState<JSZip>(new JSZip());
   const [cards, setCards] = useState<CardState>(initialCardState);
   const [value, setValue] = useState<string>("");
+  const [viewing, setViewing] = useState<string | null>(null);
   const [isWorking, setIsWorking] = useState<boolean>(false);
 
   const updateValue: UpdateValueFunc = (input) => {
@@ -92,6 +84,14 @@ const App = () => {
     });
   };
 
+  const updateCardViewer: UpdateCardViewerFunc = (image) => {
+    if (image) {
+      setViewing(image);
+    } else {
+      setViewing(null);
+    }
+  };
+
   const downloadZip: DownloadZipFunc = async () => {
     try {
       const blob = await zip.generateAsync({ type: "blob" });
@@ -120,10 +120,14 @@ const App = () => {
         </InputContainer>
 
         <ListContainer>
-          <CardList cards={cards} removeCard={removeCard}>
+          <CardList cards={cards} removeCard={removeCard} updateCardViewer={updateCardViewer}>
             <Download downloadZip={downloadZip} zip={zip} />
           </CardList>
         </ListContainer>
+
+        <ViewerContainer>
+          <CardViewer viewing={viewing} />
+        </ViewerContainer>
 
         <Footer />
       </Container>

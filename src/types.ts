@@ -18,6 +18,8 @@ export interface CardState {
 
 export type UpdateValueFunc = (input: string) => void;
 
+export type UpdateCardViewerFunc = (image?: string) => void;
+
 export type UpdateCardsFunc = (names: string[]) => void;
 
 export type RemoveCardFunc = (name: string) => void;

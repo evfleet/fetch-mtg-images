@@ -1,26 +1,36 @@
 import React from "react";
 
-import { CardState, RemoveCardFunc } from "../../../../types";
+import { CardState, RemoveCardFunc, UpdateCardViewerFunc } from "../../../../types";
 
 import { CardHeader, Heading, List, ListItem, ListImage } from "./styles";
 
 interface CardListProps {
   cards: CardState;
   removeCard: RemoveCardFunc;
+  updateCardViewer: UpdateCardViewerFunc;
 }
 
 const CardList: React.SFC<CardListProps> = ({
   children,
   cards: { available, unavailable },
-  removeCard
+  removeCard,
+  updateCardViewer
 }) => {
   const handleClick = (name: string) => (event: React.MouseEvent<HTMLButtonElement>) => {
     removeCard(name);
   };
 
+  const handleMouseEnter = (image: string) => (event: React.MouseEvent<HTMLElement>) => {
+    updateCardViewer(image);
+  };
+
+  const handleMouseLeave = () => (event: React.MouseEvent<HTMLElement>) => {
+    updateCardViewer();
+  };
+
   const availableCards = available.map(({ name, image }, index) => (
     <ListItem key={`${name}-${index}`}>
-      <ListImage>
+      <ListImage onMouseEnter={handleMouseEnter(image)} onMouseLeave={handleMouseLeave()}>
         <img src={image} alt={`Thumbnail for ${name}`} />
       </ListImage>
 

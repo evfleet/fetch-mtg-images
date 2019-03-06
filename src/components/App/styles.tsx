@@ -13,10 +13,12 @@ const Wrapper = styled.div`
 const Container = styled.main`
   display: grid;
   grid-template-columns: 49% 49%;
-  grid-template-rows: ${({ theme }) => `${theme.sizing.header}rem auto ${theme.sizing.footer}rem`};
+  grid-template-rows: ${({ theme }) =>
+    `${theme.sizing.header}rem 25% auto ${theme.sizing.footer}rem`};
   grid-template-areas:
     "header header"
     "input list"
+    "viewer list"
     "footer footer";
   grid-column-gap: 2%;
   width: 100%;
@@ -31,4 +33,8 @@ const ListContainer = styled.section`
   grid-area: list;
 `;
 
-export { Container, InputContainer, ListContainer, Wrapper };
+const ViewerContainer = styled.section`
+  grid-area: viewer;
+`;
+
+export { Container, InputContainer, ListContainer, ViewerContainer, Wrapper };

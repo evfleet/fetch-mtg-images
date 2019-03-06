@@ -36,6 +36,7 @@ const ListItem = styled.li`
 const ListImage = styled.div`
   flex-basis: 10%;
   margin-right: 0.5rem;
+  cursor: pointer;
 
   img {
     max-width: 100%;
